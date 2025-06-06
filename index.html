@@ -151,8 +151,9 @@
                     perpendicular.set(1, 0, 0);
                 }
                 
-                perpendicular.multiplyScalar(0.15);
-                secondBond.position.add(perpendicular);
+                perpendicular.multiplyScalar(0.18);
+                bond.position.add(perpendicular.clone().multiplyScalar(-0.5));
+                secondBond.position.add(perpendicular.clone().multiplyScalar(0.5));
                 
                 scene.add(secondBond);
             }
@@ -161,15 +162,19 @@
         // Criar a molécula de acetamida (CH₃CONH₂)
         function createAcetamide() {
             // Átomos
-            const C1 = createAtom('C', -1.5, 0, 0);  // Carbono do metil
-            const C2 = createAtom('C', 0, 0, 0);     // Carbono carbonila
-            const O = createAtom('O', 0.7, 0.7, 0);  // Oxigênio carbonila
-            const N = createAtom('N', 1.5, 0, 0);     // Nitrogênio
-            const H1 = createAtom('H', -1.5, -0.9, 0.9); // Hidrogênios do metil
-            const H2 = createAtom('H', -1.5, -0.9, -0.9);
-            const H3 = createAtom('H', -2.4, 0.5, 0);
-            const H4 = createAtom('H', 1.5, -0.9, 0.9);  // Hidrogênios da amida
-            const H5 = createAtom('H', 1.5, -0.9, -0.9);
+            const C1 = createAtom('C', -1.5, 0, 0);  // Carbono do metil 1
+            const C2 = createAtom('C', 0, 0, 0); // Carbono carbonila
+            const O  = createAtom('O', 0, 1.5, 0); // Oxigênio (dupla ligação, mais afastado)
+            const N  = createAtom('N', 1.5, 0, 0); // Nitrogênio (direita, levemente abaixo)
+            
+            // Hidrogênios do metil (C1) - geometria tetraédrica
+            const H1 = createAtom('H', -1.7, -0.9, 0.8);
+            const H2 = createAtom('H', -1.7, -0.9, -0.8);
+            const H3 = createAtom('H', -2.5, 0.5, 0);
+
+            // Hidrogênios da amida (N) - geometria aproximadamente tetraédrica
+            const H4 = createAtom('H', 1.7, -0.9, 0.7);
+            const H5 = createAtom('H', 1.7, -0.9, -0.7);
             
             // Ligações
             createBond(C1, C2);                     // Ligação simples C-C
